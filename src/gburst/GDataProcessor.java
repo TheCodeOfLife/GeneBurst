@@ -33,7 +33,6 @@ public class GDataProcessor {
             if (!inFile.exists() || !inFile.canRead()) { //SC_EVAL
                 System.err.println("Error cannot locate or read input file: " +
                         inFile.getName());
-                usage();
                 System.exit(0);
             }
         } catch (Exception ex) {
