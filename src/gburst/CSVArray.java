@@ -44,9 +44,34 @@ public class CSVArray {
 				gData[i - 1][j - 1] = Double.parseDouble(fileArray.get(i)[j]);
 			}
 		}
-		
-		System.out.println(Arrays.deepToString(taxonomy));
-		System.out.println(Arrays.deepToString(gData));
-		System.out.println(Arrays.toString(locations));
+
+		//System.out.println(Arrays.deepToString(taxonomy));
+		//System.out.println(Arrays.deepToString(gData));
+		//System.out.println(Arrays.toString(locations));
 	}
+
+	public String getKingdom(int index) { 
+		return taxonomy[index][0];
+	}
+
+	public String getPhylum(int index) { 
+		return taxonomy[index][1];
+	}
+
+	public String getClass(int index) { 
+		return taxonomy[index][2];
+	}
+
+	public String getOrder(int index) { 
+		return taxonomy[index][3];
+	}
+
+	public String getFamily(int index) { 
+		return taxonomy[index][4];
+	}
+
+	public String getGenus(int index) { 
+		return taxonomy[index][5];
+	}
+	
 }

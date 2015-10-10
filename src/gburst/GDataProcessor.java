@@ -4,23 +4,6 @@ import java.io.File;
 
 public class GDataProcessor {
 	
-    public static final int ARGS_AMNT = 1;
-
-	/**
-	 * Sanity check for user input
-	 * @param args user input
-	 * @return true only if formatted as requested
-	 */
-	public static boolean validateArgs(String[] args) {
-		//Verify there is only one string, a file
-		if ((null == args) || (args.length != ARGS_AMNT)) { //SC_EVAL
-			throw new IllegalArgumentException("Invalid number of arguments");
-		} else if (null == args[0] || args[0].length() == 0) { //SC_EVAL
-			throw new IllegalArgumentException("Invalid input");
-		}
-		return true;
-	}
-	
     /**
      * @param args <file1>
      */
