@@ -3,13 +3,13 @@ package gburst;
 public class Genus {
 
 	String name;
-	double percentage;
-	String parentName;
+	String description;
+	double size;
 	
 	
-	public Genus(String name, double percentage,String parentName){
+	public Genus(String name, double size){
 		this.name=name;
-		this.percentage=percentage;
-		this.parentName=parentName;
+		this.size=size;
+		description = name;
 	}
 }

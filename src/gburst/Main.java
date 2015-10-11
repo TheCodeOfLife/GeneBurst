@@ -1,6 +1,9 @@
 package gburst;
 
 import java.io.File;
+import java.util.ArrayList;
+
+import com.google.gson.Gson;
 
 public class Main {
 
@@ -22,67 +25,32 @@ public class Main {
 
 		CSVArray Foo = new CSVArray(inFile);
 
-		GeneBurst test = new GeneBurst("testBurst");
+		
+		ArrayList<GeneBurst> bursts = new ArrayList<GeneBurst>();
 
-
-		for(int i=0;i<Foo.getLength();i++){ //loop through all Taxons
-			Kingdom k = new Kingdom(Foo.getLevel(0,i));
-			test.addKingdom(k);
-		}
-		for(int j=0;j<Foo.getLength();j++){ //loop through all Taxons
-			for(int i=0;i<test.kingdoms.size();i++){ //loop through all Kingdoms
-				test.kingdoms.get(i).addPhylum(Foo.getLevel(1,j), test.kingdoms.get(i).name); //run addPhylum on all Phylums (in 2nd array index)
-			}	
-		}
-		for(int i=0;i<Foo.getLength();i++){//loop through all Taxons
-			for(int j=0;j<test.kingdoms.size();j++){//loop through all Kingdoms
-				for(int k=0;k<test.kingdoms.get(j).phylums.size(); k++){
-					test.kingdoms.get(j).phylums.get(k).addClass(Foo.getLevel(2,i), test.kingdoms.get(j).phylums.get(k));
+		for(int site = 0; site<Foo.getLocation().length; site++){
+			
+			GeneBurst test = new GeneBurst("testBurst");
+			for(int i=255;i<Foo.getLength();i++){ //loop through all Taxons
+				if(Foo.getRow(i)[site]==0){
+					continue;
 				}
+				test.getOrAddKingdom(new Kingdom(Foo.getLevel(i,  0)))
+				.getOrAddPhylum(new Phylum(Foo.getLevel(i,  1)))
+				.getOrAddClass(new Class(Foo.getLevel(i,  2)))
+				.getOrAddOrder(new Order(Foo.getLevel(i, 3)))
+				.getOrAddFamily(new Family(Foo.getLevel(i, 4)))
+				.getOrAddGenus(new Genus(Foo.getLevel(i, 5), Foo.getRow(i)[site] ))
+				;
 
 			}
+			
+			bursts.add(test);
 		}
 
-		for(int i=0;i<Foo.getLength();i++){//loop through all Taxons
-			for(int j=0;j<test.kingdoms.size();j++){//loop through all Kingdoms
-				for(int k=0;k<test.kingdoms.get(j).phylums.size(); k++){
-					for(int l=0;l<test.kingdoms.get(j).phylums.get(k).classes.size();l++){
-						test.kingdoms.get(j).phylums.get(k).classes.get(l).addOrder(Foo.getLevel(3,i),test.kingdoms.get(j).phylums.get(k).classes.get(l));
-					}
-				}
-
-			}
-		}
-
-		for(int i=0;i<Foo.getLength();i++){//loop through all Taxons
-			for(int j=0;j<test.kingdoms.size();j++){//loop through all Kingdoms
-				for(int k=0;k<test.kingdoms.get(j).phylums.size(); k++){
-					for(int l=0;l<test.kingdoms.get(j).phylums.get(k).classes.size();l++){
-						for(int m=0; m<test.kingdoms.get(j).phylums.get(k).classes.get(l).orders.size();m++){
-							test.kingdoms.get(j).phylums.get(k).classes.get(l).orders.get(m).addFamily(Foo.getLevel(4,i),test.kingdoms.get(j).phylums.get(k).classes.get(l).orders.get(m));
-						}
-					}
-				}
-
-			}
-		}
-
-		for(int i=0;i<Foo.getLength();i++){//loop through all Taxons
-			for(int j=0;j<test.kingdoms.size();j++){//loop through all Kingdoms
-				for(int k=0;k<test.kingdoms.get(j).phylums.size(); k++){
-					for(int l=0;l<test.kingdoms.get(j).phylums.get(k).classes.size();l++){
-						for(int m=0; m<test.kingdoms.get(j).phylums.get(k).classes.get(l).orders.size();m++){
-							for(int n=0; n<test.kingdoms.get(j).phylums.get(k).classes.get(l).orders.get(m).families.size();n++){
-								test.kingdoms.get(j).phylums.get(k).classes.get(l).orders.get(m).families.get(n).addGenus(Foo.getLevel(5,i),test.kingdoms.get(j).phylums.get(k).classes.get(l).orders.get(m).families.get(n));
-							}
-						}
-					}
-				}
-
-			}
-		}
-
-
+		Gson gson = new Gson();
+		String json = gson.toJson(bursts.get(0));
+		System.out.print(json);
 
 
 	}

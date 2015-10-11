@@ -1,26 +1,46 @@
 package gburst;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Family {
 	String name;
+	String description;
+
+	
+	@SerializedName("children")
 	List<Genus> genuses;
-	double aggregateSum;
-	String parentName;
+
 	
 	
-	public Family(String name, String parentName){
+	public Family(String name){
 		this.name=name;
-		aggregateSum = -1;
-		this.parentName=parentName;
-		
+		genuses = new ArrayList<Genus>();	
+		description = name;
 	}
 	
-	public void addGenus(Genus gToAdd){
-		if(genuses.contains(gToAdd)){
-			System.out.println("This isn't supposed to happen");
+	
+	public Genus getOrAddGenus(Genus gToAdd) {
+		Genus result;
+		int index = genuses.indexOf(gToAdd);
+		if(index >= 0) result = genuses.get(index);
+		else {
+			result = gToAdd;
+			genuses.add(result);
 		}
-		else if(gToAdd.parentName.equals(name)){
-			genuses.add(gToAdd);
-		}
+		
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Family toCompare = (Family) o;
+		return toCompare.name.equals(this.name);
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.name.hashCode();
 	}
 }

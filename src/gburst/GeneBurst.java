@@ -1,22 +1,32 @@
 package gburst;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 public class GeneBurst {
 	String name;
+	
+	@SerializedName("children")
 	List<Kingdom> kingdoms;
+	String description = name;
+
 	
 	
 	public GeneBurst(String name){
-		this.name=name;		
+		this.name=name;	
+		kingdoms = new ArrayList<Kingdom>();
 	}
 	
-	public void addKingdom(Kingdom kToAdd){
-		if(kingdoms.contains(kToAdd)){
-			return;
+	public Kingdom getOrAddKingdom(Kingdom kToAdd) {
+		Kingdom result;
+		int index = kingdoms.indexOf(kToAdd);
+		if(index >= 0) result = kingdoms.get(index);
+		else {
+			result = kToAdd;
+			kingdoms.add(result);
 		}
-		else{
-			kingdoms.add(kToAdd);
-			kingdoms.get(kingdoms.size()-1);
-		}
+		
+		return result;
 	}
 }

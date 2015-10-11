@@ -1,26 +1,36 @@
 package gburst;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Phylum {
 	
 	String name;
-	String parentName;
+	String description;
+	
+	@SerializedName("children")
 	List<Class> classes;
-	double aggregateSum;
+
 	
 	
 	public Phylum(String name){
 		this.name = name;
-		aggregateSum = -1;
+		classes = new ArrayList<Class>();
+		description = name;
 	}
 	
-	public void addClass(Class cToAdd){
-		if(classes.contains(cToAdd)){
-			return;
+	
+	public Class getOrAddClass(Class cToAdd) {
+		Class result;
+		int index = classes.indexOf(cToAdd);
+		if(index >= 0) result = classes.get(index);
+		else {
+			result = cToAdd;
+			classes.add(result);
 		}
-		else if(cToAdd.parentName.equals(name)){
-			classes.add(cToAdd);
-		}
+		
+		return result;
 	}
 	
 	@Override

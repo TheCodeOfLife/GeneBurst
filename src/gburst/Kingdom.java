@@ -1,17 +1,24 @@
 package gburst;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Kingdom {
 	
 	String name;
+	String description;
+	@SerializedName("children")
 	List<Phylum> phylums;
-	double aggregateSum;
+	
+
+	
 	
 	
 	public Kingdom(String name){
-		this.name=name;
-		aggregateSum = -1;
-		
+		this.name=name;	
+		phylums = new ArrayList<Phylum>();
+		description = name;
 	}
 	
 	public Phylum getOrAddPhylum(Phylum pToAdd) {
@@ -19,11 +26,21 @@ public class Kingdom {
 		int index = phylums.indexOf(pToAdd);
 		if(index >= 0) result = phylums.get(index);
 		else {
-			result = new Phylum(pToAdd.name);
+			result = pToAdd;
 			phylums.add(result);
 		}
 		
 		return result;
+	}
+	
+	public boolean equals(Object o) {
+		Kingdom toCompare = (Kingdom) o;
+		return toCompare.name.equals(this.name);
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.name.hashCode();
 	}
 	
 }

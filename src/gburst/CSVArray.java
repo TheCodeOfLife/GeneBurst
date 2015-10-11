@@ -45,7 +45,7 @@ public class CSVArray {
 			}
 		}
 
-		System.out.println(Arrays.deepToString(taxonomy));
+		//System.out.println(Arrays.deepToString(taxonomy));
 		//System.out.println(Arrays.deepToString(gData));
 		//System.out.println(Arrays.toString(locations));
 	}
@@ -60,6 +60,11 @@ public class CSVArray {
 	
 	public String getLevel(int row, int level) { 
 		return taxonomy[row][level];
+	}
+	
+	public String[] getLocation(){
+		
+		return locations;
 	}
 	
 	public double[] getRow(int row) {
