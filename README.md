@@ -3,6 +3,6 @@
 Project for HackNC 2015
 Contributors: James Barbour, Scott Emmons, Luke Tannenbaum
 
-SunBurst taxonomic visualisation of organisms gathered from Antarctic reserch
+SunBurst visualisation of the taxonomy of organisms gathered from an Antarctic research project by Arnosty Labs.
 
 [geneburst.jebarb.com](http://geneburst.jebarb.com)
