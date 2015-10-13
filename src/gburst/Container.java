@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Container {
 	
-	private String name;
-	private List<Container> containers;	
-	private double size;
+	String name;
+	List<Container> containers;	
+	double size;
 	
 	public Container(String name){
 		this.name = name;
@@ -14,13 +14,14 @@ public class Container {
 	}
 	
 	public Container(String name, double size){
-		this.name=name;
+		this(name);
 		this.size=size;
 	}
 	
 	public double getSize() {
 		return this.size;
 	}
+
 	
 	public String getName() {
 		return this.name;

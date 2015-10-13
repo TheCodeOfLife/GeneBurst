@@ -11,7 +11,7 @@ public class Main {
 	
 	private static Container generateTree(Container cont, CSVArray input, int row, int treeLevel, int site) {
 		if (treeLevel == input.getNumLevels() - 1) {
-			return cont.getOrAddContainer(new Container(input.getLevel(row, treeLevel), input.getRow(row)[site]));
+			return cont.getOrAddContainer(new Container(input.getLevel(row, treeLevel), input.getIndex(row, site)));
 		} else {
 			cont.getOrAddContainer(generateTree(new Container(input.getLevel(row, treeLevel+1)), input, row, treeLevel+1, site));
 		}
@@ -37,14 +37,33 @@ public class Main {
 
 		ArrayList<Container> bursts = new ArrayList<Container>();
 
-		for(int site = 0; site<input.getWidth(); site++){
+		for(int site = 0; site<input.getWidth(); site++) {
 			Container cont = new Container("mainTree");
-			for(int i=0;i<input.getLength();i++){ //loop through all Taxons
+			for(int row=0;row<input.getLength();row++){ //loop through all Taxons
+				if(input.getIndex(row, site)==0){
+					continue;
+				}
+				int treeLevel = 1;
+				cont.getOrAddContainer(generateTree(new Container(input.getLevel(row, treeLevel)), input, row, treeLevel, site));
+			}
+
+		/*
+		for(int site = 0; site<input.getLocations().length; site++) {
+			Container cont = new Container("testBurst");
+			for(int i=255;i<input.getLength();i++){ //loop through all Taxons
 				if(input.getRow(i)[site]==0){
 					continue;
 				}
-				cont = generateTree(cont, input, i, -1, site);
+				cont.getOrAddContainer(new Container(input.getLevel(i,  0)))
+				.getOrAddContainer(new Container(input.getLevel(i,  1)))
+				.getOrAddContainer(new Container(input.getLevel(i,  2)))
+				.getOrAddContainer(new Container(input.getLevel(i, 3)))
+				.getOrAddContainer(new Container(input.getLevel(i, 4)))
+				.getOrAddContainer(new Container(input.getLevel(i, 5), input.getIndex(i, site)))
+				;
+
 			}
+			*/
 			bursts.add(cont);
 		}
 
