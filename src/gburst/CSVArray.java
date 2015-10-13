@@ -2,7 +2,6 @@ package gburst;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class CSVArray {
@@ -44,10 +43,6 @@ public class CSVArray {
 				gData[i - 1][j - 1] = Double.parseDouble(fileArray.get(i)[j]);
 			}
 		}
-
-		//System.out.println(Arrays.deepToString(taxonomy));
-		//System.out.println(Arrays.deepToString(gData));
-		//System.out.println(Arrays.toString(locations));
 	}
 	
 	public int getLength() {
@@ -58,12 +53,19 @@ public class CSVArray {
 		return this.locations.length;
 	}
 	
+	public int getNumLevels() {
+		return this.taxonomy[0].length;
+	}
+	
 	public String getLevel(int row, int level) { 
 		return taxonomy[row][level];
 	}
 	
-	public String[] getLocation(){
-		
+	public String getSite(int index){
+		return locations[index];
+	}
+	
+	public String[] getLocations(){
 		return locations;
 	}
 	
